@@ -1,15 +1,28 @@
 import board, pieces, ai
 
 # Returns a move object based on the users input. Does not check if the move is valid.
+
+def get_alg_type():
+    print("Choose The Computer AI algorith --> Minimax : 0, alfa-beta : 1")
+    out2 = input("Your Choice: ")
+    if (out2 != '1') and (out2 != '0'):
+        print("Invalid Choice.")
+        return get_alg_type
+    return out2
+    
+    
 def get_game_type():
-    print("Choose The Game Type --> Player vs Computer : 0, Computer(Minimax with alfa-beta) vs Computer(Minimax without alfa-beta) : 1")
+    print("Choose The Game Type --> Player vs Computer : 0, Computer(Minimax) vs Computer(alfa-beta) : 1")
     out = input("Your Choice: ")
+    out2 = -1
     if out == 'Q':
         return out
     if (out != '1') and (out != '0'):
         print("Invalid Choice.")
         return get_game_type
-    return out
+    elif (out == '0'):
+        out2 = get_alg_type()
+    return out,out2
 
 
 
@@ -75,11 +88,9 @@ def letter_to_xpos(letter):
 
     raise ValueError("Invalid letter.")
 
-#
 # Entry point.
-#
     
-game_type = get_game_type()
+game_type,alg_type = get_game_type()
 
 if game_type == '0':
     print("Player vs Computer.")
@@ -105,7 +116,7 @@ if game_type == '0':
         print("User move: " + move.to_string())
         print(board.to_string())
     
-        ai_move = ai.AI.get_ai_move(board, [])
+        ai_move = ai.AI.get_ai_move(board, [],alg_type)
         if (ai_move == 0):
             if (board.is_check(pieces.Piece.RED)):
                 print("Game Over. PURPLE wins.")

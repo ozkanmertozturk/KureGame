@@ -63,7 +63,7 @@ class AI:
     INFINITE = 10000000
 
     @staticmethod
-    def get_ai_move(Sphereboard, invalid_moves):
+    def get_ai_move(Sphereboard, invalid_moves,alg_no):
         best_move = 0
         best_score = AI.INFINITE
         for move in Sphereboard.get_possible_moves(pieces.Piece.RED):
@@ -72,10 +72,11 @@ class AI:
 
             copy = board.Board.clone(Sphereboard)
             copy.perform_move(move)
-
-#            score = AI.alphabeta(copy, 2, -AI.INFINITE, AI.INFINITE, True)
             
-            score = AI.minimax(copy, 2, True)
+            if alg_no == 1:
+                score = AI.alphabeta(copy, 2, -AI.INFINITE, AI.INFINITE, True) 
+            else:  
+                score = AI.minimax(copy, 2, True)
 
             if (score < best_score):
                 best_score = score
@@ -89,7 +90,7 @@ class AI:
         copy.perform_move(best_move)
         if (copy.is_check(pieces.Piece.RED)):
             invalid_moves.append(best_move)
-            return AI.get_ai_move(Sphereboard, invalid_moves)
+            return AI.get_ai_move(Sphereboard, invalid_moves,alg_no)
 
         return best_move
 
