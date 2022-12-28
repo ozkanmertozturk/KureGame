@@ -121,7 +121,7 @@ class Piece():
 
 class Sphere(Piece):
 
-    PIECE_TYPE = "S"
+    PIECE_TYPE = "P"
     VALUE = 100
 
     def __init__(self, x, y, color):

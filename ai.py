@@ -73,7 +73,10 @@ class AI:
             copy = board.Board.clone(Sphereboard)
             copy.perform_move(move)
 
-            score = AI.alphabeta(copy, 2, -AI.INFINITE, AI.INFINITE, True)
+#            score = AI.alphabeta(copy, 2, -AI.INFINITE, AI.INFINITE, True)
+            
+            score = AI.minimax(copy, 2, True)
+
             if (score < best_score):
                 best_score = score
                 best_move = move
@@ -98,14 +101,14 @@ class AI:
         return False
 
     @staticmethod
-    def minimax(board, depth, maximizing):
+    def minimax(Sphereboard, depth, maximizing):
         if (depth == 0):
-            return Heuristics.evaluate(board)
+            return Heuristics.evaluate(Sphereboard)
 
         if (maximizing):
             best_score = -AI.INFINITE
-            for move in board.get_possible_moves(pieces.Piece.PURPLE):
-                copy = board.Board.clone(board)
+            for move in Sphereboard.get_possible_moves(pieces.Piece.PURPLE):
+                copy = board.Board.clone(Sphereboard)
                 copy.perform_move(move)
 
                 score = AI.minimax(copy, depth-1, False)
@@ -114,8 +117,8 @@ class AI:
             return best_score
         else:
             best_score = AI.INFINITE
-            for move in board.get_possible_moves(pieces.Piece.RED):
-                copy = board.Board.clone(board)
+            for move in Sphereboard.get_possible_moves(pieces.Piece.RED):
+                copy = board.Board.clone(Sphereboard)
                 copy.perform_move(move)
 
                 score = AI.minimax(copy, depth-1, True)

@@ -1,9 +1,24 @@
 import board, pieces, ai
 
 # Returns a move object based on the users input. Does not check if the move is valid.
+def get_game_type():
+    print("Choose The Game Type --> Player vs Computer : 0, Computer(Minimax with alfa-beta) vs Computer(Minimax without alfa-beta) : 1")
+    out = input("Your Choice: ")
+    if out == 'Q':
+        return out
+    if (out != '1') and (out != '0'):
+        print("Invalid Choice.")
+        return get_game_type
+    return out
+
+
+
+# Returns a move object based on the users input. Does not check if the move is valid.
 def get_user_move():
     print("Example Move: A1 A2")
     move_str = input("Your Move: ")
+    if move_str == 'Q':
+        return move_str
     move_str = move_str.replace(" ", "")
 
     try:
@@ -20,6 +35,8 @@ def get_user_move():
 def get_valid_user_move(board):
     while True:
         move = get_user_move()
+        if move == 'Q':
+            return move
         valid = False
         possible_moves = board.get_possible_moves(pieces.Piece.PURPLE)
         # No possible moves
@@ -61,33 +78,49 @@ def letter_to_xpos(letter):
 #
 # Entry point.
 #
-board = board.Board.new()
-print(board.to_string())
+    
+game_type = get_game_type()
 
-while True:
-    move = get_valid_user_move(board)
-    if (move == 0):
-        if (board.is_check(pieces.Piece.PURPLE)):
-            print("Game Over. RED Wins.")
-            break
-        else:
-            print("Stalemate.")
-            break
-
-    board.perform_move(move)
-
-    print("User move: " + move.to_string())
+if game_type == '0':
+    print("Player vs Computer.")
+    board = board.Board.new()
     print(board.to_string())
 
-    ai_move = ai.AI.get_ai_move(board, [])
-    if (ai_move == 0):
-        if (board.is_check(pieces.Piece.RED)):
-            print("Game Over. PURPLE wins.")
+    while True:
+        
+        move = get_valid_user_move(board)
+        if (move == 'Q'):
+            print("QUIT")
             break
-        else:
-            print("Stalemate.")
-            break
+        if (move == 0):
+            if (board.is_check(pieces.Piece.PURPLE)):
+                print("Game Over. RED Wins.")
+                break
+            else:
+                print("Stalemate.")
+                break
+    
+        board.perform_move(move)
+    
+        print("User move: " + move.to_string())
+        print(board.to_string())
+    
+        ai_move = ai.AI.get_ai_move(board, [])
+        if (ai_move == 0):
+            if (board.is_check(pieces.Piece.RED)):
+                print("Game Over. PURPLE wins.")
+                break
+            else:
+                print("Stalemate.")
+                break
+    
+        board.perform_move(ai_move)
+        print("AI move: " + ai_move.to_string())
+        print(board.to_string())
+        
+elif game_type == '1':
+    
+     print("Computer vs Computer.")
 
-    board.perform_move(ai_move)
-    print("AI move: " + ai_move.to_string())
-    print(board.to_string())
+else:
+    print("QUIT")    
