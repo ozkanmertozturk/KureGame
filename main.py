@@ -116,7 +116,7 @@ if game_type == '0':
         print("User move: " + move.to_string())
         print(board.to_string())
     
-        ai_move = ai.AI.get_ai_move(board, [],alg_type)
+        ai_move = ai.AI.get_ai_move(board, [],alg_type,game_type)
         if (ai_move == 0):
             if (board.is_check(pieces.Piece.RED)):
                 print("Game Over. PURPLE wins.")
@@ -132,6 +132,46 @@ if game_type == '0':
 elif game_type == '1':
     
      print("Computer vs Computer.")
+     
+     board = board.Board.new()
+     print(board.to_string())
+
+     while True:
+         inp = input("input: ")
+         if inp == '':
+             ai_move1 = ai.AI.get_ai_move(board, [],'0',game_type)
+             if (ai_move1 == 'Q'):
+                 print("QUIT")
+                 break
+             if (ai_move1 == 0):
+                 if (board.is_check(pieces.Piece.PURPLE)):
+                     print("Game Over. RED Wins.")
+                     break
+                 else:
+                     print("Stalemate.")
+                     break
+         
+             board.perform_move(ai_move1)
+         
+             print("User move: " + ai_move1.to_string())
+             print(board.to_string())
+         
+             ai_move2 = ai.AI.get_ai_move(board, [],'1',game_type)
+             if (ai_move2 == 0):
+                 if (board.is_check(pieces.Piece.RED)):
+                     print("Game Over. PURPLE wins.")
+                     break
+                 else:
+                     print("Stalemate.")
+                     break
+         
+             board.perform_move(ai_move2)
+             print("AI move: " + ai_move2.to_string())
+             print(board.to_string())
+         elif inp == 'Q':
+             print("QUIT") 
+             break
+         
 
 else:
     print("QUIT")    
