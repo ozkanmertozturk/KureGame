@@ -137,7 +137,7 @@ elif game_type == '1':
      print(board.to_string())
 
      while True:
-         inp = input("input: ")
+         inp = input("Press enter to continue: ")
          if inp == '':
              ai_move1 = ai.AI.get_ai_move(board, [],'0',game_type)
              if (ai_move1 == 'Q'):
@@ -153,7 +153,7 @@ elif game_type == '1':
          
              board.perform_move(ai_move1)
          
-             print("User move: " + ai_move1.to_string())
+             print("Minimax AI move: " + ai_move1.to_string())
              print(board.to_string())
          
              ai_move2 = ai.AI.get_ai_move(board, [],'1',game_type)
@@ -166,7 +166,7 @@ elif game_type == '1':
                      break
          
              board.perform_move(ai_move2)
-             print("AI move: " + ai_move2.to_string())
+             print("alfa-beta AI move: " + ai_move2.to_string())
              print(board.to_string())
          elif inp == 'Q':
              print("QUIT") 
