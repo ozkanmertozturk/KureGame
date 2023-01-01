@@ -14,9 +14,7 @@ class Piece():
 
 
 
-    # Returns all diagonal moves for this piece. This should therefore only
-    # be used by the Bishop and Queen since they are the only pieces that can
-    # move diagonally.
+    # Returns all diagonal moves for this piece. 
     def get_possible_diagonal_moves(self, board):
         moves = []
 
@@ -58,9 +56,7 @@ class Piece():
 
         return self.remove_null_from_list(moves)
 
-    # Returns all horizontal moves for this piece. This should therefore only
-    # be used by the Rooks and Queen since they are the only pieces that can
-    # move horizontally.
+    # Returns all horizontal moves for this piece.
     def get_possible_horizontal_moves(self, board):
         moves = []
 
@@ -135,7 +131,7 @@ class Sphere(Piece):
 
     def get_possible_moves(self, board):
         moves = []
-        # Direction the pawn can move in.
+        # Direction the piece can move in.
         direction = -1
         ref = 6
         if (self.color == Piece.RED):
@@ -163,9 +159,7 @@ class Sphere(Piece):
             
         return self.remove_null_from_list(moves)   
          
-        # The Pawn can take 2 steps as the first move.
-#        if (self.is_starting_position() and board.get_piece(self.x, self.y+ direction) == 0 and board.get_piece(self.x, self.y + direction*2) == 0):
-#            moves.append(self.get_move(board, self.x, self.y + direction * 2))
+    
     def get_eat_piece(self, board):
         
         direction = -1

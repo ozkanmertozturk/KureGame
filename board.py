@@ -5,10 +5,9 @@ class Board:
     WIDTH = 7
     HEIGHT = 7
 
-    def __init__(self, Spherepieces, white_king_moved, black_king_moved):
+    def __init__(self, Spherepieces):
         self.Spherepieces = Spherepieces
-        self.white_king_moved = white_king_moved
-        self.black_king_moved = black_king_moved
+
 
     @classmethod
     def clone(cls, Sphereboard):
@@ -18,7 +17,7 @@ class Board:
                 piece = Sphereboard.Spherepieces[x][y]
                 if (piece != 0):
                     Spherepieces[x][y] = piece.clone()
-        return cls(Spherepieces, Sphereboard.white_king_moved, Sphereboard.black_king_moved)
+        return cls(Spherepieces)
 
     @classmethod
     def new(cls):
@@ -28,7 +27,7 @@ class Board:
             chess_pieces[x][Board.HEIGHT-1] = pieces.Sphere(x, Board.HEIGHT-1, pieces.Piece.PURPLE)
             chess_pieces[x][0] = pieces.Sphere(x, 0, pieces.Piece.RED)
 
-        return cls(chess_pieces, False, False)
+        return cls(chess_pieces)
 
     def get_possible_moves(self, color):
         moves = []
