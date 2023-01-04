@@ -69,7 +69,8 @@ class AI:
             pcs = pieces.Piece.RED
         elif game_type == '1' and alg_no == '1':  
             pcs = pieces.Piece.PURPLE
-            
+        else :
+            pcs = pieces.Piece.RED
         
         best_move = 0
         best_score = AI.INFINITE
