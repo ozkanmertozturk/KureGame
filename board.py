@@ -21,13 +21,13 @@ class Board:
 
     @classmethod
     def new(cls):
-        chess_pieces = [[0 for x in range(Board.WIDTH)] for y in range(Board.HEIGHT)]
+        kure_pieces = [[0 for x in range(Board.WIDTH)] for y in range(Board.HEIGHT)]
         # Create pawns.
         for x in range(Board.WIDTH):
-            chess_pieces[x][Board.HEIGHT-1] = pieces.Sphere(x, Board.HEIGHT-1, pieces.Piece.PURPLE)
-            chess_pieces[x][0] = pieces.Sphere(x, 0, pieces.Piece.RED)
+            kure_pieces[x][Board.HEIGHT-1] = pieces.Sphere(x, Board.HEIGHT-1, pieces.Piece.PURPLE)
+            kure_pieces[x][0] = pieces.Sphere(x, 0, pieces.Piece.RED)
 
-        return cls(chess_pieces)
+        return cls(kure_pieces)
 
     def get_possible_moves(self, color):
         moves = []
@@ -57,7 +57,6 @@ class Board:
         for move in self.get_possible_moves(other_color):
             copy = Board.clone(self)
             copy.perform_move(move)
-            king_found = False
             count = 0
             for x in range(Board.WIDTH):
                 for y in range(Board.HEIGHT):
@@ -65,7 +64,6 @@ class Board:
                     if (piece != 0):
                         if (piece.color == color):
                             count +=1
-                            king_found = True
             if (count<4):
                 return True
         return False
